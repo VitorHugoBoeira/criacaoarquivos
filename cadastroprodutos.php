@@ -41,12 +41,13 @@ do {
             $produtoencontrado = false;
 
             foreach ($produtos as &$item) {
+                if (strcasecmp($item['produto'], $buscar) == 0){
                     $novoPreco = readline("Digite o novo preço: ");
                     $item['preco'] = $novoPreco;
                     $produtoencontrado = true;
                     break;
                 }
-
+            }
             if ($produtoencontrado) {
                 if (file_put_contents("buscaealteraçãodedados.txt", serialize($produtos)) !== false) {
                     echo "Preço alterado com sucesso!\n";
