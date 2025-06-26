@@ -1,0 +1,31 @@
+<?php
+
+$arquivo = "turma.txt";
+$totalnotas = 0;
+$qtdalunos = 0;
+
+$ponteiro = fopen($arquivo, "a");
+
+do {
+    $nome = readline("Digite o nome do aluno('sair' para finalizar): ");
+    
+    if($nome === "sair"){
+        break;
+    }
+    $nota = readline("digite a nota do aluno: ");
+
+    fwrite($ponteiro, "$nome - $nota\n");
+    $totalnotas += $nota;
+    $qtdalunos++;
+}
+while(true);
+fclose ($ponteiro);
+
+if($qtdalunos > 0){
+    $media = $totalnotas / $qtdalunos;
+    echo "a media da turma é: $media";
+}
+else{
+    echo "nenhum aluno foi cadastrado";
+}
+?>
