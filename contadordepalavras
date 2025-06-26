@@ -1,0 +1,27 @@
+<?php
+
+$arquivo = "contador de palavras.txt";
+
+do{
+$palavra = readline("Digite uma palavra('sair' para finalizar): ");
+if ($palavra === "sair"){
+    break;
+}
+if(file_put_contents("contador de palavras.txt", $palavra . "\n", FILE_APPEND) !== false){
+    echo "palavra salva com sucesso!\n";
+}
+
+else{
+    echo "erro ao salvar arquivo!";
+}
+
+}
+while(true);
+
+$conteudo = file_get_contents("contador de palavras.txt");
+$encontrar = readline("Digite a palavra que deseja contar: ");
+
+$totalpalavras = substr_count($conteudo, $encontrar);
+echo "$encontrar foi escrito $totalpalavras no texto!";
+
+?>
