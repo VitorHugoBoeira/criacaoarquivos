@@ -1,0 +1,59 @@
+<?php
+
+$arquivo = "usuarios.txt";
+
+echo "\tMenu\n1 - login\n2 - criar usuario\n3 - sair\n";
+
+do {
+
+    $terminal = readline("Digite qual opção deseja usar: ");
+
+    switch ($terminal) {
+
+        case 1:
+            $conteudo = file_get_contents($arquivo);
+
+            $usuario = readline("Digite seu usuario: ");
+            if (strpos($conteudo, "$usuario;") !== false) {
+                $senha = readline("Digite sua senha: ");
+                
+                if (strpos($conteudo, "$usuario;$senha") !== false) {
+                    echo "login efetuado com sucesso!\n";
+                } else {
+                    echo "usuario ou senha incorreta!\n";
+                }
+            } else {
+                echo "usuario não existe!\n";
+            }
+            break;
+
+        case 2:
+            $usuario = readline("Digite o nome de usuario: ");
+            $conteudo = file_get_contents($arquivo);
+            
+            if (strpos($conteudo, "$usuario;") === false) {
+                $senha = readline("Digite sua senha: ");
+                $confirmarsenha = readline("Digite sua senha novamente: ");
+                
+                if ($confirmarsenha == $senha) {
+                    file_put_contents($arquivo, "$usuario;$senha\n", FILE_APPEND);
+                    echo "usuario criado com sucesso!\n";
+                } else {
+                    echo "erro em criar usuario! As senhas não conferem.\n";
+                }
+            } else {
+                echo "usuario ja cadastrado!\n";
+            }
+            break;
+
+        case 3:
+            echo "SAINDO!\n";
+            break;
+
+        default:
+            echo "opção invalida\n";
+            break;
+    }
+} while ($terminal != 3);
+
+?>
